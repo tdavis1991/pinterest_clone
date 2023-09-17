@@ -10,20 +10,24 @@ const Nav = () => {
   const [toggleDropdown, setToggleDropdown] = useState(false);
   const { data: session } = useSession();
   const [providers, setProviders] = useState(null);
+  console.log(session)
 
-  console.log(providers, 'PROVIDERS')
+
 
   const signedIn = false;
 
   useEffect(() => {
     const setupProviders = async () => {
       const res = await getProviders();
+      console.log(res, 'RES')
 
       setProviders(res);
     }
 
     setupProviders();
   }, [])
+
+  console.log(providers, 'PROVIDERS')
 
   return (
     <nav className="my-2 w-full">
@@ -109,7 +113,19 @@ const Nav = () => {
             <h2>Pinterest Clone</h2>
           </div>
           <div className="flex gap-3">
-            <button className="bg-red-600 rounded-full px-3 py-1 text-md text-white">Login</button>
+            {providers && 
+                Object.values(providers).map((provider) => (
+                  <button 
+                    type="button" 
+                    key={provider.name} 
+                    onClick={() => signIn(provider.id)}
+                    className="bg-red-600 rounded-full px-3 py-1 text-md text-white"
+                  >
+                    Login
+                  </button>
+                ))
+              }
+            {/* <button className="bg-red-600 rounded-full px-3 py-1 text-md text-white">Login</button> */}
             <button className="bg-gray-300 text-black text-md rounded-full px-3 py-1">Sign Up</button>
           </div>
         </div>
