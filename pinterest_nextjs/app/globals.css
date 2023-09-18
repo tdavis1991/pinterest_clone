@@ -33,3 +33,11 @@ h1 {
 h2 {
   font-size: 1.6rem;
 }
+
+.gray_bg {
+  @apply bg-gray-200
+}
+
+.cta_btn {
+  @apply bg-red-600
+}

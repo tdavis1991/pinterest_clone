@@ -10,25 +10,17 @@ const Nav = () => {
   const [togglePinDropdown, setTogglePinDropdown] = useState(false);
   const [toggleProfileDropdown, setToggleProfileDropdown] = useState(false);
   const { data: session } = useSession();
-  const [providers, setProviders] = useState(null);
-  console.log(session, 'SESSION')
-
-
-
-  const signedIn = false;
+  const [providers, setProviders] = useState(null)
 
   useEffect(() => {
     const setupProviders = async () => {
       const res = await getProviders();
-      console.log(res, 'RES')
 
       setProviders(res);
     }
 
     setupProviders();
   }, [])
-
-  console.log(providers, 'PROVIDERS')
 
   return (
     <nav className="my-2 w-full">
@@ -69,7 +61,7 @@ const Nav = () => {
           <input 
             placeholder="Search"
             type="text"
-            className="rounded-full w-2/3 flex-grow pl-3 bg-gray-300 focus:bg-white"
+            className="rounded-full w-2/3 flex-grow pl-3 gray_bg focus:bg-white"
           />
           <Image 
             src='/assets/icons/bell-icon.png'  
@@ -85,17 +77,19 @@ const Nav = () => {
             height={30}
             className="object-contain"
           />
-          <div className="flex justify-center items-center w-18 mr-2">
+          <div 
+            className="flex justify-center items-center w-18 mr-2 hover:cursor-pointer"
+            onClick={() => setToggleProfileDropdown(prevToggleProfileDropdown => !prevToggleProfileDropdown)}
+          >
             <Image 
               src={session?.user.image}
               alt='Profile'
               width={30}
               height={30}
               className="rounded-full"
-              onClick={() => setToggleProfileDropdown(prevToggleProfileDropdown => !prevToggleProfileDropdown)}
             />
             {toggleProfileDropdown ? (
-              <div className="flex flex-col items-start w-1/6 z-10 top-14 bg-white rounded-lg p-2 gap-2 absolute shadow-md right-10">
+              <div className="flex flex-col items-start w-auto z-10 top-14 bg-white rounded-lg p-2 gap-2 absolute shadow-md right-10">
                 <p className="text-xs text-gray-500">Currently in</p>
                 <div className="flex w-full gap-2 hover:bg-gray-300 rounded-lg p-2">
                   <Image 
@@ -112,7 +106,7 @@ const Nav = () => {
                 </div>
                 <button
                   type='button'
-                  className="w-full bg-red-600 rounded-lg py-2 text-white"
+                  className="w-full cta_btn rounded-lg py-2 text-white"
                   onClick={() => {
                     setToggleProfileDropdown(prevToggleProfileDropdown => !prevToggleProfileDropdown)
                     signOut()
@@ -157,7 +151,6 @@ const Nav = () => {
                   </button>
                 ))
               }
-            {/* <button className="bg-red-600 rounded-full px-3 py-1 text-md text-white">Login</button> */}
             <button className="bg-gray-300 text-black text-md rounded-full px-3 py-1">Sign Up</button>
           </div>
         </div>
