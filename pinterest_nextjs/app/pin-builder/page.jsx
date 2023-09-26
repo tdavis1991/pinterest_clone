@@ -40,7 +40,7 @@ const page = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch('api/pin/new', {
+      const res = await fetch('/api/pin/new', {
         method: 'POST',
         body: JSON.stringify({
           title: pin.title,
@@ -92,7 +92,7 @@ const page = () => {
               accept="image/*"
               onChange={handleFileSelect}
             />
-            {pin.imageUrl && (
+            {/* {pin.imageUrl && (
               <div>
                 <img
                   src={URL.createObjectURL(pin.imageUrl)}
@@ -100,7 +100,7 @@ const page = () => {
                   className='w-1/3 min-h-[200px]'
                 />
               </div>
-            )}
+            )} */}
           </div>
           <div className='flex flex-col gap-10 flex-1 border-red-200 border-2'>
             <input 
