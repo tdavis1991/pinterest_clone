@@ -16,13 +16,10 @@ const page = () => {
 
   const { data: session } = useSession();
 
-  useEffect(() => {
-    console.log(pin, 'IMAGE')
-  }, [pin])
-
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
-    setPin({...pin, imageUrl: file.name})
+
+    setPin({...pin, imageUrl: file});
   };
 
   const handleDragOver = (event) => {
