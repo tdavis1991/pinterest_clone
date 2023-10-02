@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { CldImage } from 'next-cloudinary';
 
 const PinCard = ({ image, title }) => {
   return (
