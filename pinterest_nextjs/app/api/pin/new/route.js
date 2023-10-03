@@ -6,6 +6,12 @@ import { v2 as cloudinary } from 'cloudinary';
 export const POST = async (req) => {
   const { title, description, imageUrl, board, userId } = await req.json();
 
+  const options = {
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
+  };
+
   cloudinary.config({
     cloud_name: 'deuijuef3',
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -16,7 +22,7 @@ export const POST = async (req) => {
   try {
     await connectToDB();
 
-    const uploadImage = await cloudinary.uploader.upload(imageUrl)
+    const uploadImage = await cloudinary.uploader.upload(imageUrl, options)
     console.log(uploadImage, 'UPLOAD IMAGE');
 
     const newPin = Pin({ 

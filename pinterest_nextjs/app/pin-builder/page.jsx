@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import {Cloudinary} from "@cloudinary/url-gen";
 import Image from "next/image";
 
 const page = () => {
@@ -16,11 +17,20 @@ const page = () => {
 
   const { data: session } = useSession();
 
+  const cld = new Cloudinary({
+    cloud: {
+      cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+      apiKey: process.env.CLOUDINARY_API_KEY,
+      apiSecret: process.env.CLOUDINARY_API_SECRET
+    }
+  }); 
+
+  const myImage = cld.image('front_face');
+
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
-    console.log(file, 'FILE')
-    setPin({...pin, imageUrl: file});
-
+    const imageUrlPath = cld.image(file.name);
+    setPin({...pin, imageUrl: file.name});
   };
 
   useEffect(() => {
