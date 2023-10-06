@@ -18,14 +18,14 @@ const page = () => {
 
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
-    console.log(file, 'FILE')
+    console.log(file.name, 'FILE')
     setPin({...pin, imageUrl: file});
 
   };
 
   useEffect(() => {
     console.log(pin.imageUrl, 'PIN')
-  }, [pin])
+  }, [pin.imageUrl])
 
   const handleDragOver = (event) => {
     event.preventDefault();

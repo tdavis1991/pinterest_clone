@@ -7,7 +7,7 @@ export const POST = async (req) => {
   const { title, description, imageUrl, board, userId } = await req.json();
 
   cloudinary.config({
-    cloud_name: 'deuijuef3',
+    cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_API_SECRET,
     secure: true
