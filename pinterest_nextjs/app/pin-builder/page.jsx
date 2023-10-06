@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { CldUploadWidget } from 'next-cloudinary';
 import Image from "next/image";
 
 const page = () => {
@@ -16,16 +17,9 @@ const page = () => {
 
   const { data: session } = useSession();
 
-  const handleFileSelect = (event) => {
-    const file = event.target.files[0];
-    console.log(file.name, 'FILE')
-    setPin({...pin, imageUrl: file});
-
-  };
-
   useEffect(() => {
-    console.log(pin.imageUrl, 'PIN')
-  }, [pin.imageUrl])
+    console.log(pin, 'PIN')
+  }, [pin])
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -82,27 +76,22 @@ const page = () => {
         </div>
         <div className='flex w-full justify-between'>
           <div className='flex flex-col flex-2'>
-            <div
-              onDragOver={handleDragOver}
-              onDrop={handleDrop}
-              className='border-dashed rounded-md border-gray-400 gray_bg border-2 p-[20px] text-center hover:cursor-pointer h-96'
+            <CldUploadWidget 
+              uploadPreset="gxoon7ry"
+              onSuccess={(result) => setPin({ ...pin, imageUrl: result.info.public_id })}
             >
-              Drag & Drop or Select an Image
-            </div>
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleFileSelect}
-            />
-            {/* {pin.imageUrl && (
-              <div>
-                <img
-                  src={URL.createObjectURL(pin.imageUrl)}
-                  alt="Selected"
-                  className='w-1/3 min-h-[200px]'
-                />
-              </div>
-            )} */}
+              {({ open }) => {
+                function handleOnClick(e) {
+                  e.preventDefault();
+                  open();
+                }
+                return (
+                  <button className="button" onClick={handleOnClick}>
+                    Upload an Image
+                  </button>
+                );
+              }}
+            </CldUploadWidget>
           </div>
           <div className='flex flex-col gap-10 flex-1 border-red-200 border-2'>
             <input 
