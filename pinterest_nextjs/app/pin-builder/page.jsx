@@ -42,7 +42,8 @@ const page = () => {
           title: pin.title,
           description: pin.description || '',
           imageUrl: pin.imageUrl,
-          board: pin.board || ''
+          board: pin.board || '',
+          userId: session?.user.id,
         })
       })
 
