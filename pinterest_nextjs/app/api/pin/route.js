@@ -1,7 +1,7 @@
 import { connectToDB } from "@/utils/database";
 import Pin from "@/models/pin";
 
-export const GET = async (reg) => {
+export const GET = async (req) => {
   try {
     await connectToDB();
 

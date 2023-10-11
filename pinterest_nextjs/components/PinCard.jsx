@@ -1,17 +1,18 @@
 import { CldImage } from 'next-cloudinary';
+import Link from 'next/link';
 
-const PinCard = ({ image, title }) => {
+const PinCard = ({ image, description, id }) => {
+
   return (
-    <div className="flex flex-col">
-      {/* <Image 
+    <Link href={`/pin/${id}`} className="rounded-lg">
+      <CldImage 
+        width={250}
+        height={800}
         src={image}
-        width={50}
-        height={50}
-        className="rounded-xl"
-      /> */}
-      <h1>{title}</h1>
-    </div>
+        alt={description}
+      />
+    </Link>
   )
 }
 
-export default PinCard
+export default PinCard;
