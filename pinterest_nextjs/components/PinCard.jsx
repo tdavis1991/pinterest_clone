@@ -4,7 +4,7 @@ import Link from 'next/link';
 const PinCard = ({ image, description, id }) => {
 
   return (
-    <Link href={`/pin/?id=${id}`} className="rounded-lg">
+    <Link href={`/pin/${id}`} className="rounded-lg">
       <CldImage 
         width={250}
         height={800}
