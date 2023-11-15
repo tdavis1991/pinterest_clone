@@ -6,17 +6,16 @@ import PinCard from '@/components/PinCard';
 export default function Home() {
   const [allPins, setAllPins] = useState([]);
 
-
-  const fetchPins = async () => {
-    const response = await fetch("/api/pin");
-    const data = await response.json();
-
-    setAllPins(data);
-  };
-
   console.log(allPins)
 
   useEffect(() => {
+    const fetchPins = async () => {
+      const response = await fetch("/api/pin");
+      const data = await response.json();
+  
+      setAllPins(data);
+    };
+
     fetchPins();
   }, []);
 
