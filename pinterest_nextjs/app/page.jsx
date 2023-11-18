@@ -1,12 +1,16 @@
 "use client"
 
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+
 import PinCard from '@/components/PinCard';
 
 export default function Home() {
   const [allPins, setAllPins] = useState([]);
+  const { data: session } = useSession();
 
-  console.log(allPins)
+  console.log(allPins, 'ALL PINS');
+  console.log(session, 'USER')
 
   useEffect(() => {
     const fetchPins = async () => {

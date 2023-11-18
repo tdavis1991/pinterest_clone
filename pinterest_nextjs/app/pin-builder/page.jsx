@@ -6,8 +6,12 @@ import { useRouter } from 'next/navigation';
 import { CldUploadWidget } from 'next-cloudinary';
 import Image from "next/image";
 
+import Modal from '@/components/Modal';
+
 const page = () => {
   const router = useRouter();
+  const [user, setUser] = useState({});
+  const [openModal, setOpenModal] = useState(false);
   const [pin, setPin] = useState({
     title: '',
     description: '',
@@ -16,10 +20,22 @@ const page = () => {
   });
 
   const { data: session } = useSession();
+  console.log(pin, 'PIN')
+
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  };
 
   useEffect(() => {
-    console.log(pin, 'PIN')
-  }, [pin])
+    const fetchUser = async () => {
+      const response = await fetch(`/api/user/${session?.user.id}`);
+      const data = await response.json();
+  
+      setUser(data);
+    };
+
+    if(session?.user.id) fetchUser();
+  }, [session])
 
   const handleDragOver = (event) => {
     event.preventDefault();
@@ -66,14 +82,22 @@ const page = () => {
             height={40}
             className="object-contain"
           />
-          <div className='w-1/4 flex'>
-            <select className='w-3/4 gray_bg rounded-l-md px-1 py-2'>
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-            </select>
-            <button onClick={createPin} className='cta_btn w-1/4 text-white rounded-r-md'>Save</button>
-          </div>
+            {user.boards && user.boards.length > 0 ? (
+              <div className='w-1/4 flex'>
+                <select className='w-3/4 gray_bg rounded-l-md px-1 py-2'>
+                  {user.boards.map((board, i) => (
+                    <option key={i} value={board.name}>{board.name}</option>
+                  ))
+                  }
+                </select>
+                <button onClick={createPin} className='cta_btn w-1/4 text-white rounded-r-md'>Save</button>
+              </div>
+              ) : (
+                <div className='w-1/4'>
+                  <button onClick={() => setOpenModal(prevModal => !prevModal)} className='cta_btn w-full py-2 text-white rounded-md'>Create a board</button>
+                  {openModal && <Modal onClose={toggleModal} setPin={setPin} pin={pin} onSubmit={createPin} />}
+                </div>
+              )}
         </div>
         <div className='flex w-full justify-between'>
           <div className='flex flex-col flex-2'>
