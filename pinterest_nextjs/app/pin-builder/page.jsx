@@ -84,7 +84,7 @@ const page = () => {
           />
             {user.boards && user.boards.length > 0 ? (
               <div className='w-1/4 flex'>
-                <select className='w-3/4 gray_bg rounded-l-md px-1 py-2'>
+                <select className='w-3/4 gray_bg rounded-l-md px-1 py-2' value={pin.board} onChange={(e) => setPin({ ...pin, board: e.target.value })}>
                   {user.boards.map((board, i) => (
                     <option key={i} value={board.name}>{board.name}</option>
                   ))

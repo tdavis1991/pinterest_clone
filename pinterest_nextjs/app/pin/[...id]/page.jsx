@@ -37,6 +37,10 @@ const page = ({ params }) => {
     if(pinId) fetchPin();
   }, [])
 
+  const deletePin = async () => {
+    
+  }
+
   
 
   return (
