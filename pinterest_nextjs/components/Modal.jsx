@@ -15,7 +15,7 @@ const Modal = ({ onClose, pin, setPin, onSubmit }) => {
             placeholder='Board Name'
             required
           />
-          <button onClick={onSubmit} className="cta_btn text-white rounded-md px-3 py-2">Create Board</button>
+          <button onClick={onSubmit} className="cta_btn text-white rounded-md px-3 py-2">Create</button>
         </div>
       </div>
     </div>

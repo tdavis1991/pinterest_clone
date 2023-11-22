@@ -57,6 +57,10 @@
 //   }
 // }
 
+import { connectToDB } from "@/utils/database";
+import Pin from "@/models/pin";
+import User from "@/models/user"
+
 export const POST = async (req) => {
   const { title, description, imageUrl, board, userId } = await req.json();
 
