@@ -4,13 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { useRouter } from 'next/navigation';
 
 
 const Nav = () => {
   const [togglePinDropdown, setTogglePinDropdown] = useState(false);
   const [toggleProfileDropdown, setToggleProfileDropdown] = useState(false);
   const { data: session } = useSession();
-  const [providers, setProviders] = useState(null)
+  const [providers, setProviders] = useState(null);
+  const router = useRouter();
 
   useEffect(() => {
     const setupProviders = async () => {
@@ -91,7 +93,7 @@ const Nav = () => {
             {toggleProfileDropdown ? (
               <div className="flex flex-col items-start w-auto z-10 top-14 bg-white rounded-lg p-2 gap-2 absolute shadow-md right-10">
                 <p className="text-xs text-gray-500">Currently in</p>
-                <div className="flex w-full gap-2 hover:bg-gray-300 rounded-lg p-2">
+                <div className="flex w-full gap-2 hover:bg-gray-300 rounded-lg p-2" onClick={() => router.push(`/profile/${session?.user.id}`)}>
                   <Image 
                     src={session?.user.image}
                     alt='Profile'

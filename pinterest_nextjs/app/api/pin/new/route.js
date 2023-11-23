@@ -93,14 +93,14 @@ export const POST = async (req) => {
 
     if (existingBoardIndex !== -1) {
       // Board exists, push pin to the existing board
-      user.boards[existingBoardIndex].pins.push(newPin._id);
+      user.boards[existingBoardIndex].pins.push(newPin.imageUrl);
     } else {
       // Board doesn't exist, create a new board and push pin to it
-      user.boards.push({ name: board, pins: [newPin._id] });
+      user.boards.push({ name: board, pins: [newPin.imageUrl] });
     }
 
     // Push the pin ID to user's pins array
-    user.pins.push(newPin._id);
+    user.pins.push(newPin.imageUrl);
 
     // Save both the new pin and updated user
     await newPin.save();

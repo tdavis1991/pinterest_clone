@@ -12,14 +12,11 @@ const page = ({ params }) => {
 
   const pinId = params.id
 
-  console.log(session)
-
-
   useEffect(() => {
     const fetchUser = async () => {
       const res = await fetch(`/api/user/${session?.user?.id}`);
       const data = await res.json();
-      console.log(data, 'USER')
+      console.log(data, 'PIN PAGE')
       setUser(data) 
     }
 

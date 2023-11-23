@@ -20,7 +20,6 @@ const page = () => {
   });
 
   const { data: session } = useSession();
-  console.log(pin, 'PIN')
 
   const toggleModal = () => {
     setOpenModal(!openModal);
