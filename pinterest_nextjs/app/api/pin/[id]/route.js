@@ -19,9 +19,11 @@ export const GET = async (req, { params }) => {
   }
 }
 
-export const Delete =  async (req, { params }) => {
+export const DELETE =  async (req, { params }) => {
   try {
     await connectToDB();
+
+    console.log(params.id)
 
     await Pin.findByIdAndDelete(params.id);
 
@@ -31,6 +33,24 @@ export const Delete =  async (req, { params }) => {
   }
 }
 
-export const Update =  async (req, { params }) => {
-  
+export const PATCH =  async (req, { params }) => {
+  const { title, description, board } = req.json();
+
+  try {
+    await connectToDB();
+
+    const existingPin = await Pin.findById(params.id);
+
+    if(!existingPin) {
+      return Response('Pin not found', { status: 404 });
+    }
+
+    existingPin.title = title;
+    existingPin.description = description;
+    existingPin.board = board;
+
+    await existingPin.save();
+  } catch (error) {
+    return Response('Error updating pin', { status: 500 })
+  }
 }

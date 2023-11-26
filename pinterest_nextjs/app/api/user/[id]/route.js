@@ -22,6 +22,7 @@ export const GET = async (req, { params }) => {
     return {
       boardName: board.name,
       firstPin: board.pins.length > 0 ? board.pins[0] : null, // Get the first pin or null if empty
+      length: board.pins.length,
       id: board._id
     };
   });

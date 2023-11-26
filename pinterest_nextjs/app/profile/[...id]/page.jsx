@@ -49,7 +49,8 @@ const page = () => {
                 src={board.firstPin.imageUrl}
                 alt={board.boardName}
               />
-              <h1>{board.boardName}</h1>
+              <h2>{board.boardName}</h2>
+              {board.length > 1 ? <p>{board.length} Pins</p> : <p>{board.length} Pin</p>}
             </Link>
           ))
         ) : (
