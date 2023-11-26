@@ -16,7 +16,7 @@ const page = ({ params }) => {
     const fetchUser = async () => {
       const res = await fetch(`/api/user/${session?.user?.id}`);
       const data = await res.json();
-      console.log(data, 'PIN PAGE')
+      console.log(data.existingUser, session, 'PIN PAGE')
       setUser(data) 
     }
 
@@ -62,6 +62,7 @@ const page = ({ params }) => {
                 </select>
               }
               <button className="cta_btn rounded-full px-5 py-2 text-white">Save</button>
+              {user?._id === session?.user.id && <button className="rounded-full px-5 py-2 text-black bg-gray-300">Delete</button>}
           </div>
           <h1>{pin?.title}</h1>
           <div className="flex my-3 gap-5">
