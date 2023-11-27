@@ -18,14 +18,24 @@ export const GET = async (req, { params }) => {
     .exec();
 
   // Accessing populated boards with populated pins within each board
-  const modifiedUser = existingUser.boards.map((board) => {
+  // const modifiedUser = existingUser.boards.map((board) => {
+  //   return {
+  //     boardName: board.name,
+  //     firstPin: board.pins.length > 0 ? board.pins[0] : '', // Get the first pin or null if empty
+  //     length: board.pins.length,
+  //     id: board._id
+  //   };
+  // });
+
+  const modifiedUser = existingUser.boards.filter(board => board.pins.length > 0).map(board => {
     return {
       boardName: board.name,
-      firstPin: board.pins.length > 0 ? board.pins[0] : null, // Get the first pin or null if empty
+      firstPin: board.pins[0], // The first pin - no need for ternary since we filtered out empty pin arrays
       length: board.pins.length,
       id: board._id
     };
   });
+
 
   console.log(modifiedUser);
 

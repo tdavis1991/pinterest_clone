@@ -55,7 +55,7 @@ const page = ({ params }) => {
     }
   };
 
-  console.log(session?.user, 'PIN DETAILS SESSION')
+  console.log(user?._id === session?.user.id, 'PIN DETAILS SESSION')
 
   
 
@@ -81,7 +81,9 @@ const page = ({ params }) => {
                 </select>
               )}
               <button className="cta_btn rounded-full mx-2 px-5 py-2 text-white">Save</button>
-              {user?._id != session?.user.id && <button className="rounded-full px-5 py-2 text-black bg-gray-300" onClick={handleDelete}>Delete</button>}
+              {user?._id == session?.user.id && (
+                <button className="rounded-full px-5 py-2 text-black bg-gray-300" onClick={handleDelete}>Delete</button>
+              )}
           </div>
           <h1>{pin?.title}</h1>
           <div className="flex my-3 gap-5">
