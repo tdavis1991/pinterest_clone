@@ -19,6 +19,7 @@ const page = ({ params }) => {
       const res = await fetch(`/api/user/${session?.user?.id}`);
       const data = await res.json();
       setUser(data.existingUser) 
+      console.log(data, 'PIN DETAILS')
     }
 
     if(session?.user) fetchUser();
@@ -53,11 +54,34 @@ const page = ({ params }) => {
         console.log(error);
       }
     }
-  };
+  };  
 
-  console.log(user?._id === session?.user.id, 'PIN DETAILS SESSION')
+  const handleEdit = async () => {
+    try {
+      const res = await fetch(`/api/pin/${params.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: pin.title,
+          description: pin.description,
+          board: pin.board
+        })
+      })
 
-  
+      if(res.ok) {
+        router.push(`/pin/${params.id}`)
+      } else {
+        // Handle non-OK response
+        const errorData = await res.json(); // If error data is sent from server
+        console.error(`Error: ${res.status} - ${errorData.message}`);
+        // Additional handling for specific error cases if needed
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="w-11/12 h-screen flex flex-col justify-center items-center">
@@ -82,7 +106,10 @@ const page = ({ params }) => {
               )}
               <button className="cta_btn rounded-full mx-2 px-5 py-2 text-white">Save</button>
               {user?._id == session?.user.id && (
-                <button className="rounded-full px-5 py-2 text-black bg-gray-300" onClick={handleDelete}>Delete</button>
+                <div>
+                  <button>Edit Pin</button>
+                  <button className="rounded-full px-5 py-2 text-black bg-gray-300" onClick={handleDelete}>Delete</button>
+                </div>
               )}
           </div>
           <h1>{pin?.title}</h1>

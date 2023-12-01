@@ -52,7 +52,6 @@ export const DELETE = async (req, { params }) => {
 
     // Remove the pin from the user's document
     user.pins.pull(params.id); // Assuming pins are stored as an array in the user document
-
     
     // user.boards.filter(board => board.name == pin.board).pins.pull(params.id)
 
@@ -70,12 +69,13 @@ export const DELETE = async (req, { params }) => {
 
 
 export const PATCH =  async (req, { params }) => {
-  const { title, description, board } = req.json();
+  const { title, description, board, userId } = req.json();
 
   try {
     await connectToDB();
 
     const existingPin = await Pin.findById(params.id);
+    const existingUser = await User.findById(userId);
 
     if(!existingPin) {
       return Response('Pin not found', { status: 404 });
